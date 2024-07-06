@@ -11,13 +11,6 @@
                 // this.position = Math.floor(Math.random() * 20);
                 this.size = word.length
             }
-
-            // displayWord(thecanvas, x, y){
-            //     var c = document.getElementById(thecanvas);
-            //     var ctx = c.getContext("2d");
-            //     ctx.font = "16px Arial";
-            //     ctx.fillText(this.word.at(0), x, y);
-            // }
         }
 
         class Grid {
@@ -51,8 +44,6 @@
 
             insertWord(word, xpos, ypos){
                 var letterpx = 30;
-                // var xposition = 10 + (letterpx*xpos); // 10 margin
-                // var yposition = 22 + (letterpx*ypos); // 22 margin
                 var xposition = 0; // 10 margin
                 var yposition = 0; // 22 margin
 
@@ -85,15 +76,6 @@
 
             thegrid.insertWord(wordsArray[0].word, 0, 1);
         }
-
-        // function displayWords(){
-        //     var c = document.getElementById("myCanvas");
-        //     var ctx = c.getContext("2d");
-        //     ctx.font = "16px Arial";
-        //     ctx.fillText(wordsoop[0].word.at(0), 10, 50);
-        //     alert(wordsoop[0].position);
-
-        // }
 
         function initLoad() {
 
