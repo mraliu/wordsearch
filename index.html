@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<body onload="initLoad();">
+    <script>
+        const wordsArray = []
+
+        class Word {
+            constructor(word) {
+                this.word = word.toUpperCase();
+                // this.position = Math.floor(Math.random() * 20);
+                this.size = word.length
+            }
+
+            // displayWord(thecanvas, x, y){
+            //     var c = document.getElementById(thecanvas);
+            //     var ctx = c.getContext("2d");
+            //     ctx.font = "16px Arial";
+            //     ctx.fillText(this.word.at(0), x, y);
+            // }
+        }
+
+        class Grid {
+            constructor(width, height, letters, canvas) {
+                this.width = width; //pixel
+                this.height = height; //pixel
+                this.numletters = letters;
+                this.canvas = canvas;
+                this.block = width / letters
+                this.createGrid();
+            }
+
+            createGrid() {
+                var c = document.getElementById(this.canvas);
+                var ctx = c.getContext("2d");
+                ctx.canvas.width = this.width;
+                ctx.canvas.height = this.height;
+
+                for (let i = 0; i < this.numletters; i++) {
+                    // Draw vertical
+                    var xpos = this.block * i
+                    ctx.moveTo(xpos, 0);
+                    ctx.lineTo(xpos, this.height);
+                    ctx.stroke();
+                    // Draw horizontal
+                    ctx.moveTo(0, xpos);
+                    ctx.lineTo(this.width, xpos);
+                    ctx.stroke();
+                }
+            }
+
+            insertWord(word, xpos, ypos){
+                var letterpx = 30;
+                // var xposition = 10 + (letterpx*xpos); // 10 margin
+                // var yposition = 22 + (letterpx*ypos); // 22 margin
+                var xposition = 0; // 10 margin
+                var yposition = 0; // 22 margin
+
+                var c = document.getElementById(this.canvas);
+                var ctx = c.getContext("2d");
+                ctx.font = "16px Arial";
+                ctx.fillText(word.at(0), xposition, yposition);
+
+                for (let letter of word){
+                    
+                    xposition = 10 + (letterpx * xpos);
+                    yposition = 22 + (letterpx * ypos);
+
+                    ctx.fillText(letter, xposition, yposition);
+
+                    xpos++;
+                    // ypos++;
+                    
+                }
+            }
+        }
+
+        function genWords(thegrid) {
+            const words = document.getElementById("words").value.split(" ");
+            // Cycle through all words
+            for (let word of words) {
+                // Add words to an array of oop objects
+                wordsArray.push(new Word(word));
+            }
+
+            thegrid.insertWord(wordsArray[0].word, 0, 1);
+        }
+
+        // function displayWords(){
+        //     var c = document.getElementById("myCanvas");
+        //     var ctx = c.getContext("2d");
+        //     ctx.font = "16px Arial";
+        //     ctx.fillText(wordsoop[0].word.at(0), 10, 50);
+        //     alert(wordsoop[0].position);
+
+        // }
+
+        function initLoad() {
+
+            const myGrid = new Grid(600, 600, 20, "myCanvas");
+            
+            genWords(myGrid);
+
+            
+
+        }
+    </script>
+
+    <h1>Wordsearch Creator</h1>
+    <p>Create your own word search.</p>
+
+    <textarea id="words" name="words" rows="4" cols="50">apple</textarea>
+    <button onclick="genWords();">Click</button>
+
+    <div id="demo">Test Area</div>
+
+    <canvas id="myCanvas" style="border:1px solid #000000;">
+
+    </canvas>
+
+</body>
+
+</html>
