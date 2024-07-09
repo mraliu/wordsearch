@@ -5,6 +5,7 @@
     <script>
         const wordsArray = []
 
+        // Classes
         class Word {
             constructor(word) {
                 this.word = word.toUpperCase();
@@ -42,10 +43,11 @@
                 }
             }
 
-            insertWord(word, xpos, ypos){
+            insertWord(word, xpos, ypos, setdirection){
                 var letterpx = 30;
                 var xposition = 0; // 10 margin
                 var yposition = 0; // 22 margin
+                var direction = setdirection;
 
                 var c = document.getElementById(this.canvas);
                 var ctx = c.getContext("2d");
@@ -70,11 +72,17 @@
             const words = document.getElementById("words").value.split(" ");
             // Cycle through all words
             for (let word of words) {
-                // Add words to an array of oop objects
-                wordsArray.push(new Word(word));
+                wordsArray.push(new Word(word)); // Add to array for later
             }
 
-            thegrid.insertWord(wordsArray[0].word, 0, 1);
+            // Vertical placement of words only
+            for (let word of wordsArray){
+                xpos = Math.floor(Math.random() * (thegrid.numletters - word.size) +1);
+                document.getElementById("demo").innerHTML = xpos;
+                // ypos = Math.floor(Math.random() *20);
+                ypos = Math.floor(Math.random() * 20);
+                thegrid.insertWord(word.word, xpos, ypos, 0);
+            }
         }
 
         function initLoad() {
@@ -82,16 +90,13 @@
             const myGrid = new Grid(600, 600, 20, "myCanvas");
             
             genWords(myGrid);
-
-            
-
         }
     </script>
 
     <h1>Wordsearch Creator</h1>
     <p>Create your own word search.</p>
 
-    <textarea id="words" name="words" rows="4" cols="50">apple</textarea>
+    <textarea id="words" name="words" rows="4" cols="50">apple banana pear</textarea>
     <button onclick="genWords();">Click</button>
 
     <div id="demo">Test Area</div>
